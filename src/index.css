@@ -1,0 +1,129 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-ivory: #FAF8F5;
+    --bg-cream: #F4EFEA;
+    --bg-sand: #EAE3DB;
+    --bg-stone: #D8D0C5;
+    --text-primary: #1C1B1A;
+    --text-secondary: #5C564E;
+    --text-muted: #8E867C;
+    --accent-olive: #5A604D;
+    --accent-terracotta: #B66850;
+    --accent-champagne: #C4A77D;
+    --border-light: rgba(28, 27, 26, 0.08);
+    --border-medium: rgba(28, 27, 26, 0.16);
+  }
+
+  body {
+    background-color: var(--bg-ivory);
+    color: var(--text-primary);
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, .font-serif-display {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FAF8F5;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D8D0C5;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #C4A77D;
+}
+
+/* Smooth Image Reveal & Card Hover Effects */
+.img-editorial {
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
+}
+
+.card-luxury {
+  background: #FFFFFF;
+  border: 1px solid rgba(28, 27, 26, 0.07);
+  box-shadow: 0 4px 24px -6px rgba(28, 27, 26, 0.03);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-luxury:hover {
+  border-color: rgba(196, 167, 125, 0.4);
+  box-shadow: 0 16px 40px -12px rgba(28, 27, 26, 0.08);
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  background-color: #1C1B1A;
+  color: #FAF8F5;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.8125rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 0.875rem 1.75rem;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-primary:hover {
+  background-color: #383431;
+  box-shadow: 0 4px 20px rgba(28, 27, 26, 0.15);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: #1C1B1A;
+  border: 1px solid rgba(28, 27, 26, 0.3);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.8125rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 0.875rem 1.75rem;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-secondary:hover {
+  border-color: #1C1B1A;
+  background-color: rgba(28, 27, 26, 0.03);
+}
+
+.tag-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #8E867C;
+}
+
+/* Modal Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
