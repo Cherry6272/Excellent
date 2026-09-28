@@ -151,7 +151,7 @@ export function App() {
               We believe true grooming is an unhurried, restorative experience. EXCELLENT was created to offer Bengaluru a quiet retreat from daily hustle — where master craftsmanship meets natural light, solid oak finishes, and personal consultation.
             </p>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-8 text-left border-t border-[#1C1B1A]/8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 pt-8 text-left border-t border-[#1C1B1A]/8">
               <div className="space-y-1">
                 <h3 className="font-serif text-2xl font-semibold text-[#1C1B1A]">1:1 Attention</h3>
                 <p className="text-xs text-[#5C564E] font-light">Dedicated master stylist time for every service.</p>
@@ -189,7 +189,7 @@ export function App() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {LOCATIONS.map((loc) => (
                 <LocationCard
                   key={loc.id}
@@ -249,7 +249,7 @@ export function App() {
             </div>
 
             {/* SERVICES GRID */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredServices.map((service) => (
                 <ServiceCard
                   key={service.id}
@@ -308,7 +308,7 @@ export function App() {
                   Our RR Nagar E2, RR Nagar E3, and JP Nagar locations offer thoughtful unisex beauty and grooming services without rigid gender partitions. Whether seeking executive razor care, hand-painted balayage, or stone basin pedicures, every guest enjoys total sanctuary comfort.
                 </p>
 
-                <div className="grid grid-cols-2 gap-4 pt-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                   <div className="bg-white p-4 border border-[#1C1B1A]/6 rounded-xs space-y-1">
                     <h3 className="font-serif text-lg font-semibold text-[#1C1B1A]">Men's Grooming</h3>
                     <p className="text-xs text-[#5C564E] font-light">Hot towel shaves, beard sculpting & hair craft.</p>
@@ -395,7 +395,7 @@ export function App() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {PROFESSIONALS.map((prof) => (
                 <ProfessionalCard
                   key={prof.id}
@@ -421,7 +421,7 @@ export function App() {
               </h2>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {[
                 {
                   quote: "The JP Nagar branch is unlike any salon in Bengaluru. Warm oak paneling, tranquil music, and Arjun’s razor craft is absolute perfection.",

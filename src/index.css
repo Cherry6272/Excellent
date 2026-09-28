@@ -26,6 +26,14 @@
   h1, h2, h3, h4, .font-serif-display {
     font-family: 'Cormorant Garamond', Georgia, serif;
   }
+
+  button:not(:disabled) {
+    cursor: pointer;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+  }
 }
 
 /* Custom Scrollbar */
@@ -79,9 +87,15 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  cursor: pointer;
 }
 
-.btn-primary:hover {
+.btn-primary:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.btn-primary:hover:not(:disabled) {
   background-color: #383431;
   box-shadow: 0 4px 20px rgba(28, 27, 26, 0.15);
   transform: translateY(-1px);
@@ -103,9 +117,15 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  cursor: pointer;
 }
 
-.btn-secondary:hover {
+.btn-secondary:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.btn-secondary:hover:not(:disabled) {
   border-color: #1C1B1A;
   background-color: rgba(28, 27, 26, 0.03);
 }
