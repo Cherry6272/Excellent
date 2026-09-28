@@ -20,7 +20,6 @@ export interface LocationItem {
   specialties: string[];
 }
 
-import jpNagarImg from '../assets/jp_nagar.jpg';
 import rrNagar01Img from '../assets/rr_nagar_01.jpg';
 import rrNagar02Img from '../assets/rr_nagar_02.jpg';
 import excellent1 from '../assets/excellent1.jpeg';
