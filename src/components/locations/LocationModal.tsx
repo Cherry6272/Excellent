@@ -25,7 +25,7 @@ export const LocationModal: React.FC<LocationModalProps> = ({
       <div className="bg-[#FAF8F5] w-full max-w-4xl rounded-sm shadow-2xl overflow-hidden border border-[#1C1B1A]/10 max-h-[90vh] flex flex-col">
         
         {/* HEADER BAR */}
-        <div className="flex items-center justify-between p-4 sm:p-6 border-b border-[#1C1B1A]/8 bg-white">
+        <div className="flex items-center justify-between p-3 sm:px-6 sm:py-4 border-b border-[#1C1B1A]/8 bg-white">
           <div>
             <span className="tag-label">{location.type}</span>
             <h2 className="font-serif text-2xl sm:text-3xl font-semibold text-[#1C1B1A]">{location.name}</h2>
@@ -39,11 +39,11 @@ export const LocationModal: React.FC<LocationModalProps> = ({
         </div>
 
         {/* MODAL SCROLLABLE BODY */}
-        <div className="overflow-y-auto p-6 sm:p-8 space-y-8 flex-1">
+        <div className="overflow-y-auto p-4 sm:p-6 space-y-6 flex-1">
           
           {/* HERO IMAGE CAROUSEL */}
-          <div className="relative h-64 sm:h-80 rounded-sm overflow-hidden bg-[#EAE3DB]">
-            <ImageCarousel images={images} heightClass="h-full" />
+          <div className="relative h-72 sm:h-[420px] rounded-sm overflow-hidden bg-[#EAE3DB]">
+            <ImageCarousel images={images} heightClass="h-full" objectFit="object-contain" />
             <div className="absolute bottom-6 left-6 right-6 text-white space-y-1 pointer-events-none z-20">
               <span className="text-xs uppercase tracking-widest font-semibold text-[#C4A77D]">
                 Bengaluru Branch
@@ -138,7 +138,7 @@ export const LocationModal: React.FC<LocationModalProps> = ({
         </div>
 
         {/* FOOTER ACTION BAR */}
-        <div className="p-4 sm:p-6 border-t border-[#1C1B1A]/8 bg-white flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="p-3 sm:px-6 sm:py-4 border-t border-[#1C1B1A]/8 bg-white flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="text-xs text-[#5C564E]">
             Selected: <span className="font-semibold text-[#1C1B1A]">{location.name}</span>
           </div>

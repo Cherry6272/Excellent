@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { X, Maximize2 } from 'lucide-react';
 import heroImg from '../../assets/hero_salon.jpg';
-import jpNagarImg from '../../assets/jp_nagar.jpg';
+import excellent2 from '../../assets/excellent2.jpeg';
+import excellent3 from '../../assets/excellent3.jpeg';
+import excellent4 from '../../assets/excellent4.jpeg';
 import rrNagar01Img from '../../assets/rr_nagar_01.jpg';
 import rrNagar02Img from '../../assets/rr_nagar_02.jpg';
 
@@ -36,8 +38,24 @@ export const SPACE_ITEMS: SpaceGalleryItem[] = [
     title: 'Master Razor & Grooming Suite',
     category: 'Grooming',
     branchName: 'JP Nagar Branch',
-    image: jpNagarImg,
+    image: excellent2,
     caption: 'Solid natural oak paneling and private executive barber stations with hot towel steam amenities.'
+  },
+  {
+    id: 'g4',
+    title: 'Executive Styling Corner',
+    category: 'Styling',
+    branchName: 'JP Nagar Branch',
+    image: excellent3,
+    caption: 'Premium seating and bright, focused lighting for absolute precision styling.'
+  },
+  {
+    id: 'g5',
+    title: 'Serene Waiting Lounge',
+    category: 'Atmosphere',
+    branchName: 'JP Nagar Branch',
+    image: excellent4,
+    caption: 'A calm, sophisticated environment to enjoy a cold-brew before your session.'
   },
   {
     id: 'g4',

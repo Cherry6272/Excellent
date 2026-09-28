@@ -6,12 +6,14 @@ interface ImageCarouselProps {
   images: string[];
   heightClass?: string;
   className?: string;
+  objectFit?: 'object-cover' | 'object-contain';
 }
 
 export const ImageCarousel: React.FC<ImageCarouselProps> = ({ 
   images, 
   heightClass = 'h-64 sm:h-80',
-  className = ''
+  className = '',
+  objectFit = 'object-cover'
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -35,7 +37,7 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="absolute inset-0 w-full h-full object-cover"
+          className={`absolute inset-0 w-full h-full ${objectFit}`}
           alt={`Gallery image ${currentIndex + 1}`}
         />
       </AnimatePresence>

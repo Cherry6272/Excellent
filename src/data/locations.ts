@@ -23,6 +23,13 @@ export interface LocationItem {
 import jpNagarImg from '../assets/jp_nagar.jpg';
 import rrNagar01Img from '../assets/rr_nagar_01.jpg';
 import rrNagar02Img from '../assets/rr_nagar_02.jpg';
+import excellent1 from '../assets/excellent1.jpeg';
+import excellent2 from '../assets/excellent2.jpeg';
+import excellent3 from '../assets/excellent3.jpeg';
+import excellent4 from '../assets/excellent4.jpeg';
+import excellent5 from '../assets/excellent5.jpeg';
+import excellent6 from '../assets/excellent6.jpeg';
+import excellent7 from '../assets/excellent7.jpeg';
 
 export const LOCATIONS: LocationItem[] = [
   {
@@ -39,12 +46,16 @@ export const LOCATIONS: LocationItem[] = [
       weekdays: '09:00 AM – 09:00 PM',
       weekends: '08:30 AM – 09:30 PM'
     },
-    image: jpNagarImg,
+    image: excellent2,
     mapsUrl: 'https://maps.google.com/?q=JP+Nagar+Bengaluru',
     galleryImages: [
-      jpNagarImg,
-      'https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?auto=format&fit=crop&q=80&w=800',
-      'https://images.unsplash.com/photo-1580618672591-eb180b1a973f?auto=format&fit=crop&q=80&w=800'
+      excellent1,
+      excellent2,
+      excellent3,
+      excellent4,
+      excellent5,
+      excellent6,
+      excellent7
     ],
     description: 'A quiet architectural sanctuary featuring warm solid oak finishes, private grooming suites, and bespoke razor craft. Built for executive grooming and scalp restoration.',
     features: [
