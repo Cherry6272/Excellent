@@ -453,7 +453,7 @@ export const BookingWizard: React.FC<BookingWizardProps> = ({
                         <img
                           src={st.avatar}
                           alt={st.name}
-                          className="w-12 h-12 rounded-full object-cover shrink-0"
+                          className={`w-12 h-12 rounded-full object-cover ${st.avatarPosition || 'object-top'} border border-[#C4A77D]/40 shrink-0`}
                         />
                         <div>
                           <h4 className="font-serif font-semibold text-[#1C1B1A]">{st.name}</h4>

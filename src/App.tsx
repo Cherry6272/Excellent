@@ -16,10 +16,11 @@ import { SERVICES, type ServiceItem } from './data/services';
 import { RITUALS } from './data/rituals';
 import { PROFESSIONALS } from './data/team';
 
-import heroImg from './assets/hero_salon.jpg';
-import jpNagarImg from './assets/jp_nagar.jpg';
-import rrNagar01Img from './assets/rr_nagar_01.jpg';
-import rrNagar02Img from './assets/rr_nagar_02.jpg';
+import excellent2 from './assets/excellent2.jpeg';
+import { e2StorefrontImg } from './assets/e2images';
+import { e3ReceptionWideImg, e3PedicureLoungeImg } from './assets/e3images';
+
+import { HeroCollage } from './components/ui/HeroCollage';
 
 import { Calendar, MapPin, Sparkles, Star, Camera } from 'lucide-react';
 
@@ -36,6 +37,7 @@ export function App() {
   const [selectedServiceDetail, setSelectedServiceDetail] = useState<ServiceItem | null>(null);
 
   const [serviceFilterCategory, setServiceFilterCategory] = useState<string>('all');
+  const [stylistBranchFilter, setStylistBranchFilter] = useState<string>('all');
 
   // Trigger Booking Modal helper
   const handleOpenBooking = (branchId?: string, serviceId?: string, stylistId?: string) => {
@@ -49,6 +51,11 @@ export function App() {
   const filteredServices = serviceFilterCategory === 'all'
     ? SERVICES
     : SERVICES.filter((s) => s.category === serviceFilterCategory);
+
+  // Stylist filtering
+  const filteredProfessionals = stylistBranchFilter === 'all'
+    ? PROFESSIONALS
+    : PROFESSIONALS.filter((p) => p.branchId === stylistBranchFilter);
 
   return (
     <div className="min-h-screen bg-[#FAF8F5] text-[#1C1B1A] flex flex-col font-sans">
@@ -70,66 +77,98 @@ export function App() {
         {/* 1. HERO SECTION */}
         {/* ========================================================================= */}
         <section id="home" className="relative min-h-[90vh] sm:min-h-screen flex items-center pt-24 pb-16 overflow-hidden">
-          {/* BACKGROUND EDITORIAL PHOTOGRAPHY */}
-          <div className="absolute inset-0 z-0">
-            <img
-              src={heroImg}
-              alt="EXCELLENT Luxury Salon Interior Bengaluru"
-              className="w-full h-full object-cover object-center opacity-85 scale-102 transition-transform duration-1000"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#FAF8F5]/90 via-[#FAF8F5]/70 to-transparent" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#FAF8F5] via-transparent to-transparent" />
-          </div>
+          {/* BACKGROUND MULTI-BRANCH EDITORIAL COLLAGE (Subtle Opacity) */}
+          <HeroCollage />
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-            <div className="max-w-2xl space-y-6">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#FAF8F5]/90 backdrop-blur-xs border border-[#1C1B1A]/10 rounded-xs">
-                <Sparkles className="w-3.5 h-3.5 text-[#C4A77D]" />
-                <span className="text-[10px] uppercase tracking-[0.2em] font-semibold text-[#1C1B1A]">
-                  Bengaluru’s Premier Light-Luxury Salon
-                </span>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+              
+              {/* LEFT COLUMN: BRAND PROMISE & ACTIONS (Open & Unobstructed) */}
+              <div className="lg:col-span-7 space-y-6">
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#FAF8F5]/90 backdrop-blur-xs border border-[#1C1B1A]/10 rounded-full shadow-xs">
+                  <Sparkles className="w-3.5 h-3.5 text-[#C4A77D]" />
+                  <span className="text-[10px] uppercase tracking-[0.2em] font-semibold text-[#1C1B1A]">
+                    Bengaluru’s Premier Light-Luxury Salon
+                  </span>
+                </div>
+
+                <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl font-normal leading-[1.08] text-[#1C1B1A]">
+                  Where grooming <br />
+                  becomes a <span className="italic font-light text-[#5C564E]">ritual.</span>
+                </h1>
+
+                <p className="text-sm sm:text-base text-[#5C564E] font-normal leading-relaxed max-w-xl">
+                  A premium grooming and beauty experience across Bengaluru, designed around exceptional service, refined architectural spaces, and personalized aesthetic attention.
+                </p>
+
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2">
+                  <button
+                    onClick={() => handleOpenBooking()}
+                    className="btn-primary py-4 px-8 text-xs tracking-widest shadow-md"
+                  >
+                    <Calendar className="w-4 h-4 text-[#C4A77D]" />
+                    <span>BOOK AN APPOINTMENT</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      const el = document.getElementById('space');
+                      if (el) el.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    className="btn-secondary py-4 px-8 text-xs tracking-widest bg-[#FAF8F5]/80 backdrop-blur-xs hover:bg-[#FAF8F5]"
+                  >
+                    EXPLORE THE SPACES
+                  </button>
+                </div>
+
+                {/* THREE BRANCHES TEASER ACCENT */}
+                <div className="pt-6 flex flex-wrap items-center gap-4 sm:gap-6 text-xs text-[#5C564E] border-t border-[#1C1B1A]/10">
+                  <span className="font-semibold text-[#1C1B1A]">Three Sanctuaries:</span>
+                  <button
+                    onClick={() => {
+                      const loc = LOCATIONS.find((l) => l.id === 'jp-nagar');
+                      if (loc) setSelectedLocationDetail(loc);
+                    }}
+                    className="flex items-center gap-1.5 hover:text-[#1C1B1A] transition-colors cursor-pointer"
+                  >
+                    <MapPin className="w-3.5 h-3.5 text-[#C4A77D]" /> JP Nagar
+                  </button>
+                  <button
+                    onClick={() => {
+                      const loc = LOCATIONS.find((l) => l.id === 'rr-nagar-e2');
+                      if (loc) setSelectedLocationDetail(loc);
+                    }}
+                    className="flex items-center gap-1.5 hover:text-[#1C1B1A] transition-colors cursor-pointer"
+                  >
+                    <MapPin className="w-3.5 h-3.5 text-[#C4A77D]" /> RR Nagar (E2)
+                  </button>
+                  <button
+                    onClick={() => {
+                      const loc = LOCATIONS.find((l) => l.id === 'rr-nagar-e3');
+                      if (loc) setSelectedLocationDetail(loc);
+                    }}
+                    className="flex items-center gap-1.5 hover:text-[#1C1B1A] transition-colors cursor-pointer"
+                  >
+                    <MapPin className="w-3.5 h-3.5 text-[#C4A77D]" /> RR Nagar (E3)
+                  </button>
+                </div>
               </div>
 
-              <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl font-normal leading-[1.08] text-[#1C1B1A]">
-                Where grooming <br />
-                becomes a <span className="italic font-light text-[#5C564E]">ritual.</span>
-              </h1>
-
-              <p className="text-sm sm:text-base text-[#5C564E] font-light leading-relaxed max-w-xl">
-                A premium grooming and beauty experience across Bengaluru, designed around exceptional service, refined architectural spaces, and personalized aesthetic attention.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <button
-                  onClick={() => handleOpenBooking()}
-                  className="btn-primary py-4 px-8 text-xs tracking-widest shadow-md"
-                >
-                  <Calendar className="w-4 h-4 text-[#C4A77D]" />
-                  <span>BOOK AN APPOINTMENT</span>
-                </button>
-                <button
-                  onClick={() => {
-                    const el = document.getElementById('services');
-                    if (el) el.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                  className="btn-secondary py-4 px-8 text-xs tracking-widest"
-                >
-                  EXPLORE OUR SERVICES
-                </button>
-              </div>
-
-              {/* THREE BRANCHES TEASER ACCENT */}
-              <div className="pt-8 flex flex-wrap items-center gap-6 text-xs text-[#5C564E] border-t border-[#1C1B1A]/10">
-                <span className="font-semibold text-[#1C1B1A]">Three Sanctuaries:</span>
-                <span className="flex items-center gap-1.5">
-                  <MapPin className="w-3.5 h-3.5 text-[#C4A77D]" /> JP Nagar
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <MapPin className="w-3.5 h-3.5 text-[#C4A77D]" /> RR Nagar (E2)
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <MapPin className="w-3.5 h-3.5 text-[#C4A77D]" /> RR Nagar (E3)
-                </span>
+              {/* RIGHT COLUMN: ELEGANT FLOATING SANCTUARIES PILL (Desktop) */}
+              <div className="lg:col-span-5 hidden lg:flex flex-col items-end justify-end self-end pb-4">
+                <div className="inline-flex items-center gap-3 bg-[#FAF8F5]/90 backdrop-blur-md px-4 py-2.5 rounded-full border border-[#1C1B1A]/10 shadow-lg text-xs">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                  <span className="font-medium text-[#1C1B1A]">3 Sanctuaries Across Bengaluru</span>
+                  <span className="text-[#8E867C]">|</span>
+                  <button
+                    onClick={() => {
+                      const el = document.getElementById('space');
+                      if (el) el.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    className="text-[#C4A77D] hover:text-[#1C1B1A] font-semibold flex items-center gap-1 cursor-pointer transition-colors"
+                  >
+                    Explore Spaces & Masters →
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -340,16 +379,17 @@ export function App() {
               <div className="lg:col-span-6">
                 <div className="relative rounded-sm overflow-hidden shadow-xl border border-[#1C1B1A]/10 bg-[#EAE3DB] h-96 sm:h-[480px]">
                   <img
-                    src={rrNagar02Img}
-                    alt="Unisex Sanctuary Experience EXCELLENT"
+                    src={e3PedicureLoungeImg}
+                    alt="Unisex Pedicure, Spa & Beauty Lounge at RR Nagar E3"
                     className="w-full h-full object-cover img-editorial"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                   <div className="absolute bottom-6 left-6 right-6 text-white space-y-1">
                     <span className="text-[10px] uppercase tracking-widest font-semibold text-[#C4A77D]">
-                      RR Nagar — E3
+                      RR Nagar — E3 Unisex Sanctuary
                     </span>
-                    <h3 className="font-serif text-2xl font-semibold drop-shadow-xs">The Pedicure & Beauty Sanctuary</h3>
+                    <h3 className="font-serif text-2xl font-semibold drop-shadow-xs">The Pedicure, Nail & Spa Lounge</h3>
+                    <p className="text-xs text-white/90 font-light">Custom soaking basins, private dermal suites, and bespoke haircraft for all.</p>
                   </div>
                 </div>
               </div>
@@ -374,7 +414,7 @@ export function App() {
               </p>
             </div>
 
-            <SpaceGallery />
+            <SpaceGallery onOpenBooking={handleOpenBooking} />
 
           </div>
         </section>
@@ -386,17 +426,42 @@ export function App() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
             
             <div className="text-center max-w-3xl mx-auto space-y-4">
-              <span className="tag-label">Master Craftsmen</span>
+              <span className="tag-label">Respected Masters</span>
               <h2 className="font-serif text-3xl sm:text-5xl font-normal text-[#1C1B1A]">
-                Our Professionals
+                Our Master Craftsmen
               </h2>
               <p className="text-sm text-[#5C564E] font-light">
-                Meet our senior stylists, master barbers, and skincare aestheticians across JP Nagar, RR Nagar E2, and RR Nagar E3.
+                Meet our senior stylists, master barbers, and clinical skincare aestheticians across JP Nagar, RR Nagar E2, and RR Nagar E3.
               </p>
+
+              {/* BRANCH FILTER TABS */}
+              <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
+                {[
+                  { id: 'all', label: 'All Masters', count: PROFESSIONALS.length },
+                  { id: 'jp-nagar', label: 'JP Nagar', count: PROFESSIONALS.filter(p => p.branchId === 'jp-nagar').length },
+                  { id: 'rr-nagar-e2', label: 'RR Nagar — E2', count: PROFESSIONALS.filter(p => p.branchId === 'rr-nagar-e2').length },
+                  { id: 'rr-nagar-e3', label: 'RR Nagar — E3', count: PROFESSIONALS.filter(p => p.branchId === 'rr-nagar-e3').length },
+                ].map((tab) => (
+                  <button
+                    key={tab.id}
+                    onClick={() => setStylistBranchFilter(tab.id)}
+                    className={`text-xs uppercase tracking-widest px-4 py-2 rounded-xs font-semibold transition-all flex items-center gap-1.5 ${
+                      stylistBranchFilter === tab.id
+                        ? 'bg-[#1C1B1A] text-[#FAF8F5] shadow-xs'
+                        : 'bg-white text-[#5C564E] hover:bg-[#FAF8F5] border border-[#1C1B1A]/8'
+                    }`}
+                  >
+                    <span>{tab.label}</span>
+                    <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${stylistBranchFilter === tab.id ? 'bg-[#C4A77D] text-[#1C1B1A]' : 'bg-[#1C1B1A]/6 text-[#5C564E]'}`}>
+                      {tab.count}
+                    </span>
+                  </button>
+                ))}
+              </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {PROFESSIONALS.map((prof) => (
+              {filteredProfessionals.map((prof) => (
                 <ProfessionalCard
                   key={prof.id}
                   professional={prof}
@@ -488,16 +553,17 @@ export function App() {
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {[
-                { img: heroImg, caption: 'Ivory Sanctuary Archways' },
-                { img: jpNagarImg, caption: 'JP Nagar Executive Grooming' },
-                { img: rrNagar01Img, caption: 'RR Nagar E2 Hair Lab' },
-                { img: rrNagar02Img, caption: 'RR Nagar E3 Pedicure Sanctuary' }
+                { img: e3ReceptionWideImg, caption: 'E3 Grand Chandelier Reception' },
+                { img: excellent2, caption: 'JP Nagar Master Barber Suite' },
+                { img: e2StorefrontImg, caption: 'RR Nagar E2 Men’s Parlour' },
+                { img: e3PedicureLoungeImg, caption: 'E3 Foot Spa & Pedicure Lounge' }
               ].map((item, idx) => (
-                <div key={idx} className="relative h-48 overflow-hidden rounded-xs group bg-[#EAE3DB]">
+                <div key={idx} className="relative h-48 sm:h-56 overflow-hidden rounded-xs group bg-[#EAE3DB] border border-[#1C1B1A]/8">
                   <img
                     src={item.img}
                     alt={item.caption}
-                    className="w-full h-full object-cover img-editorial group-hover:scale-105"
+                    loading="lazy"
+                    className="w-full h-full object-cover img-editorial group-hover:scale-105 transition-transform duration-700"
                   />
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-3 text-center text-white">
                     <span className="text-xs font-serif italic">{item.caption}</span>
