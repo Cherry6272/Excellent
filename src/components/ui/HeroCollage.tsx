@@ -12,7 +12,7 @@ import {
   e3EntranceImg,
   e3WashStationCorridorImg,
   e3ReceptionDeskImg,
-  e3MasterFarhanImg
+  e3MasterAlamImg
 } from '../../assets/e3images';
 
 // Real E2 Photos
@@ -23,7 +23,7 @@ import {
   e2StationMirrorImg,
   e2WashStationImg,
   e2ReceptionImg,
-  e2MasterDanishImg
+  e2MasterShahrukhImg
 } from '../../assets/e2images';
 
 // Real JP Nagar Photos
@@ -58,7 +58,7 @@ export const HeroCollage: React.FC = () => {
     { img: e2WaitingLoungeImg, alt: 'E2 Leather Lounge' },
     { img: excellent3, alt: 'JP Nagar Executive Corner' },
     { img: e3EntranceImg, alt: 'E3 Glass Entrance Portal' },
-    { img: e3MasterFarhanImg, alt: 'Master Farhan at E3' },
+    { img: e3MasterAlamImg, alt: 'Master Alam at E3' },
   ];
 
   const col4 = [
@@ -66,7 +66,7 @@ export const HeroCollage: React.FC = () => {
     { img: e2WashStationImg, alt: 'E2 Hair Wash Bay' },
     { img: excellent4, alt: 'JP Nagar Serene Waiting Lounge' },
     { img: e3SpaTreatmentSuiteImg, alt: 'E3 Dermal Spa Room' },
-    { img: e2MasterDanishImg, alt: 'Master Danish at E2' },
+    { img: e2MasterShahrukhImg, alt: 'Master Shahrukh at E2' },
   ];
 
   const col5 = [
@@ -91,7 +91,7 @@ export const HeroCollage: React.FC = () => {
           {stream.map((item, idx) => (
             <div
               key={idx}
-              className="relative rounded-md overflow-hidden border border-[#1C1B1A]/8 shadow-xs bg-[#EAE3DB] shrink-0 h-52 sm:h-60 md:h-68"
+              className="relative rounded-md overflow-hidden border border-[#1C1B1A]/10 shadow-sm bg-[#EAE3DB] shrink-0 h-52 sm:h-60 md:h-68 group"
             >
               <img
                 src={item.img}
@@ -99,6 +99,12 @@ export const HeroCollage: React.FC = () => {
                 loading="lazy"
                 className="w-full h-full object-cover select-none pointer-events-none"
               />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+              <div className="absolute bottom-2.5 left-2.5 right-2.5 flex items-center pointer-events-none">
+                <span className="text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 rounded-full bg-black/65 backdrop-blur-xs text-white border border-white/15 truncate shadow-xs">
+                  {item.alt}
+                </span>
+              </div>
             </div>
           ))}
         </div>

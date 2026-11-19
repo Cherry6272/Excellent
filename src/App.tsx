@@ -22,7 +22,7 @@ import { e3ReceptionWideImg, e3PedicureLoungeImg } from './assets/e3images';
 
 import { HeroCollage } from './components/ui/HeroCollage';
 
-import { Calendar, MapPin, Sparkles, Star, Camera } from 'lucide-react';
+import { Calendar, Sparkles, Star, Camera } from 'lucide-react';
 
 export function App() {
   const [activeSection, setActiveSection] = useState<string>('home');
@@ -37,6 +37,7 @@ export function App() {
   const [selectedServiceDetail, setSelectedServiceDetail] = useState<ServiceItem | null>(null);
 
   const [serviceFilterCategory, setServiceFilterCategory] = useState<string>('all');
+  const [serviceBranchFilter, setServiceBranchFilter] = useState<string>('all');
   const [stylistBranchFilter, setStylistBranchFilter] = useState<string>('all');
 
   // Trigger Booking Modal helper
@@ -47,10 +48,14 @@ export function App() {
     setIsBookingOpen(true);
   };
 
-  // Service filtering
-  const filteredServices = serviceFilterCategory === 'all'
-    ? SERVICES
-    : SERVICES.filter((s) => s.category === serviceFilterCategory);
+  // Service filtering (by Category and Branch)
+  const filteredServices = SERVICES.filter((s) => {
+    const matchesCategory = serviceFilterCategory === 'all' 
+      || s.category === serviceFilterCategory
+      || (serviceFilterCategory === 'hair' && s.name.toLowerCase().includes('haircut'));
+    const matchesBranch = serviceBranchFilter === 'all' || s.branches.includes(serviceBranchFilter);
+    return matchesCategory && matchesBranch;
+  });
 
   // Stylist filtering
   const filteredProfessionals = stylistBranchFilter === 'all'
@@ -121,34 +126,40 @@ export function App() {
                 </div>
 
                 {/* THREE BRANCHES TEASER ACCENT */}
-                <div className="pt-6 flex flex-wrap items-center gap-4 sm:gap-6 text-xs text-[#5C564E] border-t border-[#1C1B1A]/10">
+                <div className="pt-6 flex flex-wrap items-center gap-3 sm:gap-4 text-xs text-[#5C564E] border-t border-[#1C1B1A]/10">
                   <span className="font-semibold text-[#1C1B1A]">Three Sanctuaries:</span>
                   <button
                     onClick={() => {
                       const loc = LOCATIONS.find((l) => l.id === 'jp-nagar');
                       if (loc) setSelectedLocationDetail(loc);
                     }}
-                    className="flex items-center gap-1.5 hover:text-[#1C1B1A] transition-colors cursor-pointer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/90 hover:bg-white text-[#1C1B1A] border border-[#1C1B1A]/10 shadow-xs transition-all cursor-pointer text-xs"
                   >
-                    <MapPin className="w-3.5 h-3.5 text-[#C4A77D]" /> JP Nagar
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#C4A77D]" />
+                    <span className="font-semibold">JP Nagar</span>
+                    <span className="text-[10px] text-[#8E867C]">(Barbering)</span>
                   </button>
                   <button
                     onClick={() => {
                       const loc = LOCATIONS.find((l) => l.id === 'rr-nagar-e2');
                       if (loc) setSelectedLocationDetail(loc);
                     }}
-                    className="flex items-center gap-1.5 hover:text-[#1C1B1A] transition-colors cursor-pointer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/90 hover:bg-white text-[#1C1B1A] border border-[#1C1B1A]/10 shadow-xs transition-all cursor-pointer text-xs"
                   >
-                    <MapPin className="w-3.5 h-3.5 text-[#C4A77D]" /> RR Nagar (E2)
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#C4A77D]" />
+                    <span className="font-semibold">RR Nagar E2</span>
+                    <span className="text-[10px] text-[#8E867C]">(Men's Studio)</span>
                   </button>
                   <button
                     onClick={() => {
                       const loc = LOCATIONS.find((l) => l.id === 'rr-nagar-e3');
                       if (loc) setSelectedLocationDetail(loc);
                     }}
-                    className="flex items-center gap-1.5 hover:text-[#1C1B1A] transition-colors cursor-pointer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/90 hover:bg-white text-[#1C1B1A] border border-[#1C1B1A]/10 shadow-xs transition-all cursor-pointer text-xs"
                   >
-                    <MapPin className="w-3.5 h-3.5 text-[#C4A77D]" /> RR Nagar (E3)
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#C4A77D]" />
+                    <span className="font-semibold">RR Nagar E3</span>
+                    <span className="text-[10px] text-[#8E867C]">(Unisex & Spa)</span>
                   </button>
                 </div>
               </div>
@@ -224,10 +235,11 @@ export function App() {
                 <span className="italic text-[#5C564E] font-light">One signature experience.</span>
               </h2>
               <p className="text-sm text-[#5C564E] font-light">
-                Discover our three distinct locations across Bengaluru, each designed with bespoke architectural features while maintaining our signature standard.
+                Discover our three distinct locations across Bengaluru, each designed with bespoke architectural features, authentic photographs, dedicated master specialists, and complete digital menus.
               </p>
             </div>
 
+            {/* THREE CARDS LUXURY SHOWCASE */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {LOCATIONS.map((loc) => (
                 <LocationCard
@@ -246,9 +258,30 @@ export function App() {
         </section>
 
         {/* ========================================================================= */}
-        {/* 4. SERVICES CATALOG */}
+        {/* 4. THE SPACE — EDITORIAL INTERIOR GALLERY */}
         {/* ========================================================================= */}
-        <section id="services" className="py-20 sm:py-28 bg-[#F4EFEA] border-t border-[#1C1B1A]/8">
+        <section id="space" className="py-20 sm:py-28 bg-[#F4EFEA] border-t border-[#1C1B1A]/8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+            
+            <div className="text-center max-w-3xl mx-auto space-y-4">
+              <span className="tag-label">Architectural Interiors</span>
+              <h2 className="font-serif text-3xl sm:text-5xl font-normal text-[#1C1B1A]">
+                The Space
+              </h2>
+              <p className="font-serif italic text-lg sm:text-xl text-[#5C564E] font-light">
+                "Designed for the ritual, not just the result. Every detail has a purpose."
+              </p>
+            </div>
+
+            <SpaceGallery onOpenBooking={handleOpenBooking} />
+
+          </div>
+        </section>
+
+        {/* ========================================================================= */}
+        {/* 5. SERVICES CATALOG */}
+        {/* ========================================================================= */}
+        <section id="services" className="py-20 sm:py-28 bg-[#FAF8F5] border-t border-[#1C1B1A]/8">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
             
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
@@ -258,32 +291,77 @@ export function App() {
                   Services Curation
                 </h2>
                 <p className="text-sm text-[#5C564E] font-light max-w-xl">
-                  Organized into specialized care disciplines for hair, beard design, dermal hydration, and hand aesthetics.
+                  Organized into specialized care disciplines for hair, beard design, dermal hydration, hand aesthetics, and bridal elegance.
                 </p>
               </div>
 
-              {/* CATEGORY FILTER PILLS */}
-              <div className="flex flex-wrap gap-2">
+              {/* ACTION: EXPLORE E3 MENU */}
+              <button
+                onClick={() => {
+                  const loc = LOCATIONS.find((l) => l.id === 'rr-nagar-e3');
+                  if (loc) setSelectedLocationDetail(loc);
+                }}
+                className="btn-secondary py-2.5 px-4 text-xs tracking-wider flex items-center gap-2 self-start md:self-auto hover:bg-[#FAF8F5]"
+              >
+                <Sparkles className="w-3.5 h-3.5 text-[#C4A77D]" />
+                <span>Explore RR Nagar E3 Full Menu</span>
+              </button>
+            </div>
+
+            {/* DUAL FILTERS: BRANCH TABS & DISCIPLINE PILLS */}
+            <div className="space-y-4 pt-2 border-y border-[#1C1B1A]/8 py-4">
+              {/* BRANCH SELECTOR */}
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-[10px] uppercase tracking-widest font-semibold text-[#8E867C] mr-1">Sanctuary:</span>
                 {[
-                  { id: 'all', label: 'All Services' },
-                  { id: 'hair', label: 'Hair' },
-                  { id: 'grooming', label: 'Grooming' },
-                  { id: 'skin', label: 'Skin & Facial' },
-                  { id: 'nails', label: 'Nails' },
-                  { id: 'beauty', label: 'Beauty' }
-                ].map((cat) => (
+                  { id: 'all', label: 'All Sanctuaries' },
+                  { id: 'jp-nagar', label: 'JP Nagar' },
+                  { id: 'rr-nagar-e2', label: 'RR Nagar — E2' },
+                  { id: 'rr-nagar-e3', label: 'RR Nagar — E3 (Full Menu)' },
+                ].map((b) => (
                   <button
-                    key={cat.id}
-                    onClick={() => setServiceFilterCategory(cat.id)}
-                    className={`text-xs uppercase tracking-widest px-4 py-2 rounded-xs font-medium transition-all ${
-                      serviceFilterCategory === cat.id
-                        ? 'bg-[#1C1B1A] text-[#FAF8F5] font-semibold shadow-xs'
-                        : 'bg-white text-[#5C564E] hover:bg-[#FAF8F5] border border-[#1C1B1A]/6'
+                    key={b.id}
+                    onClick={() => setServiceBranchFilter(b.id)}
+                    className={`text-xs uppercase tracking-wider px-3.5 py-1.5 rounded-xs font-semibold transition-all ${
+                      serviceBranchFilter === b.id
+                        ? 'bg-[#1C1B1A] text-[#FAF8F5] shadow-xs'
+                        : 'bg-white text-[#5C564E] hover:bg-[#FAF8F5] border border-[#1C1B1A]/8'
                     }`}
                   >
-                    {cat.label}
+                    {b.label}
                   </button>
                 ))}
+              </div>
+
+              {/* CATEGORY FILTER PILLS */}
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="text-[10px] uppercase tracking-widest font-semibold text-[#8E867C] mr-1">Discipline:</span>
+                  {[
+                    { id: 'all', label: 'All Services' },
+                    { id: 'hair', label: 'Hair' },
+                    { id: 'grooming', label: 'Grooming' },
+                    { id: 'skin', label: 'Skin & Facial' },
+                    { id: 'nails', label: 'Nails' },
+                    { id: 'beauty', label: 'Beauty' }
+                  ].map((cat) => (
+                    <button
+                      key={cat.id}
+                      onClick={() => setServiceFilterCategory(cat.id)}
+                      className={`text-xs uppercase tracking-widest px-3.5 py-1.5 rounded-xs font-medium transition-all ${
+                        serviceFilterCategory === cat.id
+                          ? 'bg-[#C4A77D] text-[#1C1B1A] font-bold shadow-xs'
+                          : 'bg-white/90 text-[#5C564E] hover:bg-[#FAF8F5] border border-[#1C1B1A]/6'
+                      }`}
+                    >
+                      {cat.label}
+                    </button>
+                  ))}
+                </div>
+
+                <div className="text-xs text-[#8E867C]">
+                  Showing <span className="font-semibold text-[#1C1B1A]">{filteredServices.length}</span> curated treatments
+                </div>
               </div>
             </div>
 
@@ -303,9 +381,9 @@ export function App() {
         </section>
 
         {/* ========================================================================= */}
-        {/* 5. CURATED RITUALS & PACKAGES */}
+        {/* 6. CURATED RITUALS & PACKAGES */}
         {/* ========================================================================= */}
-        <section id="rituals" className="py-20 sm:py-28 bg-[#FAF8F5]">
+        <section id="rituals" className="py-20 sm:py-28 bg-[#F4EFEA] border-t border-[#1C1B1A]/8">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
             
             <div className="text-center max-w-3xl mx-auto space-y-4">
@@ -332,9 +410,9 @@ export function App() {
         </section>
 
         {/* ========================================================================= */}
-        {/* 6. UNISEX EXPERIENCE ("A SPACE FOR EVERYONE") */}
+        {/* 7. UNISEX EXPERIENCE ("A SPACE FOR EVERYONE") */}
         {/* ========================================================================= */}
-        <section className="py-20 sm:py-28 bg-[#F4EFEA] border-y border-[#1C1B1A]/8 overflow-hidden">
+        <section className="py-20 sm:py-28 bg-[#FAF8F5] border-t border-[#1C1B1A]/8 overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
               
@@ -398,26 +476,6 @@ export function App() {
           </div>
         </section>
 
-        {/* ========================================================================= */}
-        {/* 7. THE SPACE — EDITORIAL INTERIOR GALLERY */}
-        {/* ========================================================================= */}
-        <section id="space" className="py-20 sm:py-28 bg-[#FAF8F5]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-            
-            <div className="text-center max-w-3xl mx-auto space-y-4">
-              <span className="tag-label">Architectural Interiors</span>
-              <h2 className="font-serif text-3xl sm:text-5xl font-normal text-[#1C1B1A]">
-                The Space
-              </h2>
-              <p className="font-serif italic text-lg sm:text-xl text-[#5C564E] font-light">
-                "Designed for the ritual, not just the result. Every detail has a purpose."
-              </p>
-            </div>
-
-            <SpaceGallery onOpenBooking={handleOpenBooking} />
-
-          </div>
-        </section>
 
         {/* ========================================================================= */}
         {/* 8. PROFESSIONALS / MASTER STYLISTS */}
@@ -489,19 +547,19 @@ export function App() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {[
                 {
-                  quote: "The JP Nagar branch is unlike any salon in Bengaluru. Warm oak paneling, tranquil music, and Arjun’s razor craft is absolute perfection.",
+                  quote: "The JP Nagar branch is unlike any salon in Bengaluru. Warm oak paneling, tranquil music, and Prabhakar’s master razor craft is absolute perfection.",
                   name: "Siddharth Rao",
                   branch: "JP Nagar Guest",
                   rating: 5
                 },
                 {
-                  quote: "Priya at RR Nagar E2 transformed my dull hair with effortless balayage. Natural light in the studio makes the whole afternoon feel like a spa getaway.",
-                  name: "Meera K.",
+                  quote: "Shahrukh at RR Nagar E2 gave me the sharpest fade and relaxing hot towel shave I've had in Bengaluru. Unhurried atmosphere, true gentleman's retreat.",
+                  name: "Vikram R.",
                   branch: "RR Nagar E2 Guest",
                   rating: 5
                 },
                 {
-                  quote: "The travertine stone pedicure at RR Nagar E3 is world-class. Peaceful environment, zero rush, and warm linen seating. High end throughout.",
+                  quote: "Stella's travertine stone pedicure and Alam's styling at RR Nagar E3 are world-class. Peaceful environment, zero rush, and warm linen seating. High end throughout.",
                   name: "Anand & Shweta",
                   branch: "RR Nagar E3 Guests",
                   rating: 5

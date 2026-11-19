@@ -385,7 +385,12 @@ export const BookingWizard: React.FC<BookingWizardProps> = ({
                       ))
                     ) : (
                       availableServices
-                        .filter((s) => s.category === selectedCategory)
+                        .filter((s) => {
+                          if (selectedCategory === 'hair') {
+                            return s.category === 'hair' || (s.category === 'grooming' && s.name.toLowerCase().includes('haircut'));
+                          }
+                          return s.category === selectedCategory;
+                        })
                         .map((s) => (
                           <div
                             key={s.id}
@@ -456,7 +461,14 @@ export const BookingWizard: React.FC<BookingWizardProps> = ({
                           className={`w-12 h-12 rounded-full object-cover ${st.avatarPosition || 'object-top'} border border-[#C4A77D]/40 shrink-0`}
                         />
                         <div>
-                          <h4 className="font-serif font-semibold text-[#1C1B1A]">{st.name}</h4>
+                          <div className="flex items-center gap-1.5">
+                            <h4 className="font-serif font-semibold text-[#1C1B1A]">{st.name}</h4>
+                            {st.isFounder && (
+                              <span className="bg-[#C4A77D]/20 text-[#8E7044] text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.2 rounded-xs">
+                                Founder
+                              </span>
+                            )}
+                          </div>
                           <p className="text-xs text-[#C4A77D] font-medium">{st.role}</p>
                         </div>
                       </div>

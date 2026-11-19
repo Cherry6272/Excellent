@@ -4,9 +4,9 @@ import e2WaitingLoungeImg from './WhatsApp Image 2026-10-11 at 3.40.15 PM.jpeg';
 import e2StationMirrorImg from './WhatsApp Image 2026-10-11 at 3.40.15 PM (1).jpeg';
 import e2WashStationImg from './WhatsApp Image 2026-10-11 at 3.40.15 PM (2).jpeg';
 import e2ChairsRowImg from './WhatsApp Image 2026-10-11 at 3.40.16 PM.jpeg';
-import e2MasterAatifImg from './WhatsApp Image 2026-10-11 at 3.40.44 PM.jpeg';
-import e2MasterDanishImg from './WhatsApp Image 2026-10-11 at 3.40.45 PM (1).jpeg';
-import e2MasterShoaibImg from './WhatsApp Image 2026-10-11 at 3.40.45 PM.jpeg';
+import e2MasterHuzairImg from './huzair.jpeg';
+import e2MasterShahrukhImg from './shahrukh.jpeg';
+import e2MasterNazirImg from './nazir.jpeg';
 
 export const e2Images = {
   storefront: e2StorefrontImg,
@@ -15,9 +15,9 @@ export const e2Images = {
   stationMirror: e2StationMirrorImg,
   washStation: e2WashStationImg,
   chairsRow: e2ChairsRowImg,
-  masterAatif: e2MasterAatifImg,
-  masterDanish: e2MasterDanishImg,
-  masterShoaib: e2MasterShoaibImg,
+  masterHuzair: e2MasterHuzairImg,
+  masterShahrukh: e2MasterShahrukhImg,
+  masterNazir: e2MasterNazirImg,
 };
 
 export {
@@ -27,7 +27,7 @@ export {
   e2StationMirrorImg,
   e2WashStationImg,
   e2ChairsRowImg,
-  e2MasterAatifImg,
-  e2MasterDanishImg,
-  e2MasterShoaibImg,
+  e2MasterHuzairImg,
+  e2MasterShahrukhImg,
+  e2MasterNazirImg,
 };

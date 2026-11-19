@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import type { LocationItem } from '../../data/locations';
 import { PROFESSIONALS } from '../../data/team';
+import { SERVICES } from '../../data/services';
 import { X, MapPin, Clock, Phone, Navigation, CheckCircle2, Calendar } from 'lucide-react';
 import { ImageCarousel } from '../ui/ImageCarousel';
 
 interface LocationModalProps {
   location: LocationItem | null;
   onClose: () => void;
-  onBookAtLocation: (locationId: string, stylistId?: string) => void;
+  onBookAtLocation: (locationId: string, stylistId?: string, serviceId?: string) => void;
 }
 
 export const LocationModal: React.FC<LocationModalProps> = ({
@@ -15,12 +16,24 @@ export const LocationModal: React.FC<LocationModalProps> = ({
   onClose,
   onBookAtLocation
 }) => {
+  const [menuFilterCategory, setMenuFilterCategory] = useState<string>('all');
+
   if (!location) return null;
 
   const branchStaff = PROFESSIONALS.filter((p) => p.branchId === location.id);
-  const images = location.galleryImages && location.galleryImages.length > 0 
+  const galleryImages = location.galleryImages && location.galleryImages.length > 0 
     ? location.galleryImages 
     : [location.image];
+
+  const branchServices = SERVICES.filter((s) => s.branches.includes(location.id));
+  const filteredBranchServices = menuFilterCategory === 'all'
+    ? branchServices
+    : branchServices.filter((s) => {
+        if (menuFilterCategory === 'hair') {
+          return s.category === 'hair' || (s.category === 'grooming' && s.name.toLowerCase().includes('haircut'));
+        }
+        return s.category === menuFilterCategory;
+      });
 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-6 animate-fade-in">
@@ -35,20 +48,20 @@ export const LocationModal: React.FC<LocationModalProps> = ({
           <button
             onClick={onClose}
             aria-label="Close branch modal"
-            className="p-2 text-[#5C564E] hover:text-[#1C1B1A] hover:bg-[#F4EFEA] rounded-xs transition-colors"
+            className="p-2 text-[#5C564E] hover:text-[#1C1B1A] hover:bg-[#F4EFEA] rounded-xs transition-colors cursor-pointer"
           >
             <X className="w-6 h-6" />
           </button>
         </div>
 
         {/* MODAL SCROLLABLE BODY */}
-        <div className="overflow-y-auto p-4 sm:p-6 space-y-6 flex-1">
+        <div className="overflow-y-auto p-4 sm:p-6 space-y-8 flex-1">
           
-          {/* HERO IMAGE CAROUSEL */}
-          <div className="rounded-sm overflow-hidden border border-[#1C1B1A]/10 shadow-sm">
+          {/* ARCHITECTURAL INTERIORS CAROUSEL */}
+          <div className="rounded-sm overflow-hidden border border-[#1C1B1A]/10 shadow-sm bg-[#1A1918]">
             <ImageCarousel 
-              images={images} 
-              heightClass="h-64 sm:h-96" 
+              images={galleryImages} 
+              heightClass="h-64 sm:h-80 md:h-96" 
               objectFit="object-cover" 
               showThumbnails={true}
             />
@@ -76,7 +89,7 @@ export const LocationModal: React.FC<LocationModalProps> = ({
 
               {/* SPECIALTIES TAGS */}
               <div className="pt-2">
-                <h5 className="text-[10px] uppercase tracking-widest font-semibold text-[#8E867C] mb-2">Location Specialties:</h5>
+                <h5 className="text-[10px] uppercase tracking-widest font-semibold text-[#8E867C] mb-2">Location Highlights:</h5>
                 <div className="flex flex-wrap gap-1.5">
                   {location.specialties.map((spec, idx) => (
                     <span
@@ -133,7 +146,7 @@ export const LocationModal: React.FC<LocationModalProps> = ({
               <div className="flex items-center justify-between">
                 <div>
                   <h4 className="font-serif text-xl sm:text-2xl font-semibold text-[#1C1B1A]">
-                    Master Stylists at {location.shortName}
+                    Master Craftsmen at {location.shortName}
                   </h4>
                   <p className="text-xs text-[#5C564E]">Click any specialist to reserve your dedicated appointment.</p>
                 </div>
@@ -158,11 +171,99 @@ export const LocationModal: React.FC<LocationModalProps> = ({
                       className={`w-14 h-14 rounded-full object-cover ${staff.avatarPosition || 'object-top'} border-2 border-[#C4A77D]/40 shrink-0 group-hover:scale-105 transition-transform`}
                     />
                     <div className="min-w-0 flex-1">
-                      <h5 className="font-serif font-semibold text-[#1C1B1A] text-sm group-hover:text-[#8E7044] transition-colors truncate">
-                        {staff.name}
-                      </h5>
+                      <div className="flex items-center gap-1.5">
+                        <h5 className="font-serif font-semibold text-[#1C1B1A] text-sm group-hover:text-[#8E7044] transition-colors truncate">
+                          {staff.name}
+                        </h5>
+                        {staff.isFounder && (
+                          <span className="bg-[#C4A77D]/20 text-[#8E7044] text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.2 rounded-xs shrink-0">
+                            Founder
+                          </span>
+                        )}
+                      </div>
                       <p className="text-[11px] text-[#C4A77D] font-medium truncate">{staff.role}</p>
                       <p className="text-[10px] text-[#8E867C] mt-0.5">{staff.experienceYears} Yrs Exp • Book Now &rarr;</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* COMPLETE DIGITAL SERVICE MENU & RATE CARD */}
+          {branchServices.length > 0 && (
+            <div className="space-y-4 pt-6 border-t border-[#1C1B1A]/8">
+              <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
+                <div>
+                  <span className="tag-label text-[#C4A77D]">Bespoke Rate Card</span>
+                  <h4 className="font-serif text-2xl font-semibold text-[#1C1B1A]">
+                    {location.shortName} Treatment Menu
+                  </h4>
+                  <p className="text-xs text-[#5C564E]">
+                    Curated pricing and rituals available at this physical sanctuary.
+                  </p>
+                </div>
+
+                {/* CATEGORY FILTER TABS */}
+                <div className="flex flex-wrap gap-1.5">
+                  {[
+                    { id: 'all', label: 'All Treatments' },
+                    { id: 'hair', label: 'Hair' },
+                    { id: 'grooming', label: 'Grooming' },
+                    { id: 'skin', label: 'Skin & Facial' },
+                    { id: 'nails', label: 'Nails' },
+                    { id: 'beauty', label: 'Beauty' }
+                  ].map((cat) => (
+                    <button
+                      key={cat.id}
+                      onClick={() => setMenuFilterCategory(cat.id)}
+                      className={`text-[10px] uppercase tracking-wider px-3 py-1 rounded-xs font-semibold transition-all cursor-pointer ${
+                        menuFilterCategory === cat.id
+                          ? 'bg-[#1C1B1A] text-[#FAF8F5]'
+                          : 'bg-white text-[#5C564E] hover:bg-[#FAF8F5] border border-[#1C1B1A]/8'
+                      }`}
+                    >
+                      {cat.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* SERVICES LIST */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2">
+                {filteredBranchServices.map((service) => (
+                  <div
+                    key={service.id}
+                    className="bg-white p-4 rounded-xs border border-[#1C1B1A]/8 hover:border-[#C4A77D]/60 transition-all flex flex-col justify-between space-y-3 group shadow-2xs"
+                  >
+                    <div className="space-y-1.5">
+                      <div className="flex items-start justify-between gap-2">
+                        <h5 className="font-serif font-semibold text-[#1C1B1A] text-base group-hover:text-[#8E7044] transition-colors">
+                          {service.name}
+                        </h5>
+                        <span className="font-serif font-bold text-[#1C1B1A] text-base shrink-0">
+                          {service.price}
+                        </span>
+                      </div>
+                      <p className="text-xs text-[#5C564E] line-clamp-2 leading-relaxed font-light">
+                        {service.shortDesc}
+                      </p>
+                    </div>
+
+                    <div className="flex items-center justify-between pt-2 border-t border-[#1C1B1A]/6 text-[11px]">
+                      <div className="flex items-center gap-1.5 text-[#8E867C]">
+                        <Clock className="w-3.5 h-3.5 text-[#C4A77D]" />
+                        <span>{service.duration}</span>
+                      </div>
+                      <button
+                        onClick={() => {
+                          onClose();
+                          onBookAtLocation(location.id, undefined, service.id);
+                        }}
+                        className="btn-primary text-[10px] py-1.5 px-3 uppercase tracking-wider"
+                      >
+                        BOOK THIS
+                      </button>
                     </div>
                   </div>
                 ))}
@@ -175,7 +276,7 @@ export const LocationModal: React.FC<LocationModalProps> = ({
         {/* FOOTER ACTION BAR */}
         <div className="p-3 sm:px-6 sm:py-4 border-t border-[#1C1B1A]/8 bg-white flex flex-col sm:flex-row items-center justify-between gap-3 sticky bottom-0 z-30">
           <div className="text-xs text-[#5C564E] hidden sm:block">
-            Selected: <span className="font-semibold text-[#1C1B1A]">{location.name}</span>
+            Selected Sanctuary: <span className="font-semibold text-[#1C1B1A]">{location.name}</span>
           </div>
           <button
             onClick={() => {

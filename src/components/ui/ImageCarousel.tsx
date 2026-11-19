@@ -10,8 +10,8 @@ interface ImageCarouselProps {
   showThumbnails?: boolean;
 }
 
-export const ImageCarousel: React.FC<ImageCarouselProps> = ({ 
-  images, 
+export const ImageCarousel: React.FC<ImageCarouselProps> = ({
+  images,
   heightClass = 'h-64 sm:h-80',
   className = '',
   objectFit = 'object-cover',
@@ -51,7 +51,7 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
             alt={`Sanctuary photo ${currentIndex + 1}`}
           />
         </AnimatePresence>
-        
+
         {/* Editorial gradient */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
 
@@ -72,14 +72,14 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
         {/* Navigation Controls */}
         {images.length > 1 && (
           <>
-            <button 
+            <button
               onClick={prevImage}
               className="absolute left-3 top-1/2 -translate-y-1/2 p-2.5 bg-black/40 hover:bg-black/80 backdrop-blur-md rounded-full text-white transition-all z-20 shadow-sm"
               aria-label="Previous photograph"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
-            <button 
+            <button
               onClick={nextImage}
               className="absolute right-3 top-1/2 -translate-y-1/2 p-2.5 bg-black/40 hover:bg-black/80 backdrop-blur-md rounded-full text-white transition-all z-20 shadow-sm"
               aria-label="Next photograph"
@@ -97,11 +97,10 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
             <button
               key={idx}
               onClick={() => setCurrentIndex(idx)}
-              className={`relative h-12 w-16 sm:h-14 sm:w-20 rounded-xs overflow-hidden shrink-0 border-2 transition-all ${
-                idx === currentIndex
+              className={`relative h-12 w-16 sm:h-14 sm:w-20 rounded-xs overflow-hidden shrink-0 border-2 transition-all ${idx === currentIndex
                   ? 'border-[#C4A77D] scale-102 opacity-100'
                   : 'border-transparent opacity-50 hover:opacity-85'
-              }`}
+                }`}
             >
               <img src={img} alt="" className="w-full h-full object-cover" />
             </button>

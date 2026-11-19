@@ -1,9 +1,17 @@
+export interface GalleryPhotoDetail {
+  url: string;
+  label: string;
+  zone: string;
+}
+
 export interface LocationItem {
   id: string;
   name: string;
   shortName: string;
   subTitle: string;
   type: string;
+  taglineBadge: string;
+  rateHighlights: string;
   address: string;
   landmark: string;
   phone: string;
@@ -14,6 +22,7 @@ export interface LocationItem {
   };
   image: string;
   galleryImages: string[];
+  galleryDetails?: GalleryPhotoDetail[];
   mapsUrl: string;
   description: string;
   features: string[];
@@ -58,6 +67,8 @@ export const LOCATIONS: LocationItem[] = [
     shortName: 'JP Nagar',
     subTitle: 'Signature Grooming & Hair Architecture',
     type: 'Executive Grooming Sanctuary',
+    taglineBadge: 'Executive Barbering & Razor Craft',
+    rateHighlights: 'Haircut ₹150 • Clean Shave ₹100 • Hair Spa ₹650',
     address: '15th Cross Road, 3rd Phase, JP Nagar, Bengaluru, Karnataka 560078',
     landmark: 'Opposite Mini Forest Cultural Centre',
     phone: '+91 80 4920 1821',
@@ -78,14 +89,23 @@ export const LOCATIONS: LocationItem[] = [
       excellent7,
       excellent8
     ],
+    galleryDetails: [
+      { url: excellent2, label: 'Solid Oak Master Barber Suite', zone: 'Master Suite' },
+      { url: excellent1, label: 'Private Grooming Alcove & Mirrors', zone: 'Grooming Alcove' },
+      { url: excellent3, label: 'Executive Barber Chairs & Stations', zone: 'Barber Row' },
+      { url: excellent4, label: 'Quiet Waiting Lounge & Espresso Bar', zone: 'Lounge' },
+      { url: excellent5, label: 'Scalp Detox & Hair Wash Bay', zone: 'Wash Bay' },
+      { url: excellent6, label: 'Bespoke Oak Cabinetry & Tool Display', zone: 'Craft Suite' }
+    ],
     description: 'A quiet architectural sanctuary featuring warm solid oak finishes, private grooming stations, and bespoke razor craft. Built for executive grooming, scalp restoration, and precision haircraft.',
     features: [
       'Private Master Grooming Suites',
       'Scalp & Hair Restoration Suite',
+      'Zero-Gravity Massage Chair Available',
       'Complementary Cold-Brew & Espresso Bar',
       'Valet Parking Available'
     ],
-    specialties: ['Precision Haircraft', 'Hot Towel Beard Rituals', 'Scalp Detox Therapy', 'Executive Styling']
+    specialties: ['Precision Haircuts (₹150)', 'Hot Towel Razor Shaves', 'L\'Oréal & Schwarzkopf Colouring', 'Traditional Indian Champi']
   },
   {
     id: 'rr-nagar-e2',
@@ -93,6 +113,8 @@ export const LOCATIONS: LocationItem[] = [
     shortName: 'RR Nagar E2',
     subTitle: 'Signature Men\'s Parlour & Grooming Studio',
     type: 'Men\'s Grooming Sanctuary',
+    taglineBadge: 'Dedicated Men’s Grooming Parlour',
+    rateHighlights: 'Haircut ₹140 • Shave/Beard ₹80 • Head Massage ₹170',
     address: '#384/A-P-11, 40 Feet Main Road, Ideal Township, R.R. Nagar, Bengaluru, Karnataka 560098',
     landmark: 'Near Ideal Homes Circle',
     phone: '+91 80 4920 1822',
@@ -101,24 +123,33 @@ export const LOCATIONS: LocationItem[] = [
       weekdays: '09:30 AM – 09:00 PM',
       weekends: '09:00 AM – 09:30 PM'
     },
-    image: e2StorefrontImg,
+    image: e2ChairsRowImg,
     mapsUrl: 'https://maps.google.com/?q=RR+Nagar+Bengaluru',
     galleryImages: [
-      e2StorefrontImg,
       e2ChairsRowImg,
       e2WaitingLoungeImg,
       e2ReceptionImg,
       e2StationMirrorImg,
-      e2WashStationImg
+      e2WashStationImg,
+      e2StorefrontImg
     ],
-    description: 'Our dedicated men’s parlour located in Ideal Township, RR Nagar. Features custom barber stations, traditional hot towel straight razorcraft, soothing scalp wash bays, and relaxed executive hospitality.',
+    galleryDetails: [
+      { url: e2ChairsRowImg, label: 'Executive Barber Station Row with Tufted Leather', zone: 'Barber Row' },
+      { url: e2WaitingLoungeImg, label: 'Chesterfield Tufted Leather Waiting Lounge', zone: 'Lounge' },
+      { url: e2ReceptionImg, label: 'Sanctuary Reception Altar & Brass Accents', zone: 'Reception' },
+      { url: e2StationMirrorImg, label: 'Precision Mirror Grooming Station', zone: 'Barber Station' },
+      { url: e2WashStationImg, label: 'Ergonomic Hair Wash & Scalp Rinse Bay', zone: 'Wash Bay' },
+      { url: e2StorefrontImg, label: 'Ideal Township Facade & Storefront Entrance', zone: 'Exterior' }
+    ],
+    description: 'Our dedicated men’s parlour located in Ideal Township, RR Nagar. Features custom barber stations, traditional hot towel straight razorcraft, soothing scalp wash bays, De-Tan and revitalizing facials, and relaxed executive hospitality.',
     features: [
       'Bespoke Men\'s Barbering Stations',
       'Hot Towel & Straight Razor Rituals',
       'Executive Scalp Care & Hair Wash Bay',
-      'Tufted Leather Waiting Lounge'
+      'Tufted Leather Waiting Lounge',
+      'Street-Level Convenient Access'
     ],
-    specialties: ['Precision Fade Haircuts', 'Beard Sculpting & Hot Shave', 'Scalp Spa & Cranial Massage', 'Men\'s Facials & De-Tan']
+    specialties: ['Precision Haircut (₹140)', 'Beard Shave & Trim (₹80)', 'Head Massage Champi (₹170)', 'De-Tan (₹500)', 'Men\'s Facials (₹700–₹1,500)', 'L\'Oréal Hair Spa (₹650)']
   },
   {
     id: 'rr-nagar-e3',
@@ -126,6 +157,8 @@ export const LOCATIONS: LocationItem[] = [
     shortName: 'RR Nagar E3',
     subTitle: 'Unisex Beauty, Hair & Luxury Spa Lounge',
     type: 'Unisex Salon & Luxury Spa',
+    taglineBadge: 'Grand Unisex Salon, Nail Bar & Dermal Spa',
+    rateHighlights: 'Unisex Hair • Spa Pedicures • Hydra Facials • Nail Art',
     address: '80 Feet Main Road, Bangarappa Nagar, RR Nagar, Bengaluru, Karnataka 560098',
     landmark: 'Adjacent to Luxury Living Avenue',
     phone: '+91 80 4920 1823',
@@ -138,15 +171,25 @@ export const LOCATIONS: LocationItem[] = [
     mapsUrl: 'https://maps.google.com/?q=RR+Nagar+Bangarappa+Bengaluru',
     galleryImages: [
       e3ReceptionWideImg,
-      e3EntranceImg,
-      e3StylingFloorImg,
-      e3StylingActionImg,
       e3PedicureLoungeImg,
+      e3StylingFloorImg,
       e3NailArtBarImg,
       e3FacialSuiteImg,
       e3SpaTreatmentSuiteImg,
       e3WashStationCorridorImg,
+      e3StylingActionImg,
+      e3EntranceImg,
       e3ReceptionDeskImg
+    ],
+    galleryDetails: [
+      { url: e3ReceptionWideImg, label: 'Grand Chandelier Reception & Walnut Architectural Slats', zone: 'Grand Arrival' },
+      { url: e3PedicureLoungeImg, label: 'Travertine Foot Spa & Pedicure Sanctuary', zone: 'Foot Spa' },
+      { url: e3StylingFloorImg, label: 'Spacious Modern Unisex Hair Styling Studio', zone: 'Styling Floor' },
+      { url: e3NailArtBarImg, label: 'Artisanal Diamond Gel Nail & Manicure Bar', zone: 'Nail Bar' },
+      { url: e3FacialSuiteImg, label: 'Private Clinical Hydra-Facial Suite', zone: 'Dermal Suite' },
+      { url: e3SpaTreatmentSuiteImg, label: 'Private Body Spa & Dermal Treatment Chamber', zone: 'Spa Chamber' },
+      { url: e3WashStationCorridorImg, label: 'Hair Wash & Relaxation Corridor Bay', zone: 'Wash Bay' },
+      { url: e3StylingActionImg, label: 'Master Stylist Hair Sculpting in Action', zone: 'Master Craft' }
     ],
     description: 'Our expansive, light-filled unisex salon & wellness sanctuary in Bangarappa Nagar, RR Nagar. Featuring designer hair styling suites, custom pedicure & foot spa tubs, an artisanal diamond nail bar, and private aesthetic dermal treatment rooms.',
     features: [
@@ -154,7 +197,8 @@ export const LOCATIONS: LocationItem[] = [
       'Dedicated Pedicure & Foot Spa Lounge',
       'Artisan Gel Nail & Manicure Bar',
       'Private Aesthetic Skincare & Hydra-Facial Suite',
-      'Private Dermal Therapy & Spa Treatment Room'
+      'Private Dermal Therapy & Spa Treatment Room',
+      'Dedicated Aesthetic Consultation'
     ],
     specialties: ['Couture Haircuts & Styling', 'Balayage, Global Color & Keratin', 'Hydra-Glow Dermal Facials', 'Spa Pedicures & Nail Artistry', 'Holistic Head & Body Spa']
   }

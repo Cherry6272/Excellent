@@ -24,17 +24,31 @@ export const ProfessionalCard: React.FC<ProfessionalCardProps> = ({
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
           
-          <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-xs text-[#1C1B1A] text-[10px] uppercase font-semibold px-2.5 py-1 rounded-xs border border-[#1C1B1A]/10 flex items-center gap-1.5 shadow-xs">
-            <Award className="w-3 h-3 text-[#C4A77D]" />
-            <span>{professional.experienceYears} Years Craft</span>
-          </div>
+          {professional.isFounder ? (
+            <div className="absolute top-4 left-4 bg-[#C4A77D] text-[#1C1B1A] text-[10px] uppercase font-bold tracking-wider px-3 py-1 rounded-xs flex items-center gap-1.5 shadow-md">
+              <Award className="w-3.5 h-3.5 text-[#1C1B1A]" />
+              <span>Founder & Master Craftsman</span>
+            </div>
+          ) : (
+            <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-xs text-[#1C1B1A] text-[10px] uppercase font-semibold px-2.5 py-1 rounded-xs border border-[#1C1B1A]/10 flex items-center gap-1.5 shadow-xs">
+              <Award className="w-3 h-3 text-[#C4A77D]" />
+              <span>{professional.experienceYears} Years Craft</span>
+            </div>
+          )}
 
           <div className="absolute top-4 right-4 bg-[#1C1B1A]/80 backdrop-blur-xs text-[#FAF8F5] text-[10px] uppercase tracking-wider font-semibold px-2.5 py-1 rounded-xs">
             {professional.branchName.replace(' Branch', '')}
           </div>
 
           <div className="absolute bottom-4 left-4 right-4 text-white">
-            <h3 className="font-serif text-2xl sm:text-3xl font-semibold drop-shadow-xs">{professional.name}</h3>
+            <div className="flex items-center gap-2">
+              <h3 className="font-serif text-2xl sm:text-3xl font-semibold drop-shadow-xs">{professional.name}</h3>
+              {professional.isFounder && (
+                <span className="bg-[#C4A77D] text-[#1C1B1A] text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-xs shadow-xs">
+                  Founder
+                </span>
+              )}
+            </div>
             <p className="text-xs text-[#C4A77D] font-medium drop-shadow-xs mt-0.5">{professional.role}</p>
           </div>
         </div>
